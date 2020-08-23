@@ -1,12 +1,14 @@
 <?php
 
 class MyCircularDeque {
+    private $count = 0;
+    private $arr = [];
     /**
      * Initialize your data structure here. Set the size of the deque to be k.
      * @param Integer $k
      */
     function __construct($k) {
-        
+        $this->count = $k;
     }
   
     /**
@@ -15,7 +17,11 @@ class MyCircularDeque {
      * @return Boolean
      */
     function insertFront($value) {
-        
+        if($this->isFull()){
+            return false;
+        }
+        array_push($this->arr, $value);
+        return true;
     }
   
     /**
@@ -24,7 +30,11 @@ class MyCircularDeque {
      * @return Boolean
      */
     function insertLast($value) {
-        
+        if($this->isFull()){
+            return false;
+        }
+        array_unshift($this->arr, $value);
+        return true;
     }
   
     /**
@@ -32,7 +42,11 @@ class MyCircularDeque {
      * @return Boolean
      */
     function deleteFront() {
+        if(array_pop($this->arr) !== null){
+            return true;
+        }
         
+        return false;
     }
   
     /**
@@ -40,7 +54,10 @@ class MyCircularDeque {
      * @return Boolean
      */
     function deleteLast() {
-        
+        if(array_shift($this->arr) !== null){
+            return true;
+        }
+        return false;
     }
   
     /**
@@ -48,7 +65,10 @@ class MyCircularDeque {
      * @return Integer
      */
     function getFront() {
-        
+        if($this->isEmpty()){
+            return -1;
+        }
+        return $this->arr[count($this->arr) - 1];
     }
   
     /**
@@ -56,15 +76,20 @@ class MyCircularDeque {
      * @return Integer
      */
     function getRear() {
-        
+        if($this->isEmpty()){
+            return -1;
+        }
+        return $this->arr[0];
     }
-  
     /**
      * Checks whether the circular deque is empty or not.
      * @return Boolean
      */
     function isEmpty() {
-        
+        if($this->arr){
+            return false;
+        }
+        return true;
     }
   
     /**
@@ -72,7 +97,7 @@ class MyCircularDeque {
      * @return Boolean
      */
     function isFull() {
-        
+        return (count($this->arr) >= $this->count)?true:false;
     }
 }
 
